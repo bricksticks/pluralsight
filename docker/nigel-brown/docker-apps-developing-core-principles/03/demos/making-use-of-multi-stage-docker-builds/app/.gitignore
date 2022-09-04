@@ -1,0 +1,8 @@
+# ignore binary
+mini
+kiss
+
+# ignore text files
+*.txt
+
+
