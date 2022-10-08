@@ -53,9 +53,11 @@ FROM nginx:alpine
 COPY --from=app-zip-creator /app.zip /usr/share/nginx/html/assets/app.zip
 COPY --from=build /app/site /usr/share/nginx/html
 
+ARG bricksticks_commit_id
 LABEL ch.bricksticks.project.original-url="https://github.com/docker/getting-started.git"
 LABEL ch.bricksticks.project.bricksticks-url="https://github.com/bricksticks/pluralsight/tree/main/docker/docker-\
 hub-intro/docker-getting-started"
+LABEL ch.bricksticks.project.git-commit-id="${bricksticks_commit_id}"
 LABEL ch.bricksticks.project.description="This docker getting started project is structured in a somewhat confusing \
 way. It actually consists of two applications which are totally independent! One one hand the project contains what \
 goes into this image, which is a static website generated from a markdown document using mkdocs. This markdown content \
@@ -64,6 +66,6 @@ the app.zip such that it can be downloaded. The app/ contents are an entirely di
 that is using react to generate the website contents and implements a simple TODO manager."
 LABEL ch.bricksticks.image.description="Image to serve a docker tutorial around a todo app (which is not part of the \
 image). The image uses nginx to serve a mkdocs markdown documentation."
-LABEL ch.bricksticks.image.build-command="git log --format="%H" --max-count=1 | xargs -I'{}' docker build --tag \
-docker-getting-started:1.0.0 --tag bricksticks-commit:'{}'"
+LABEL ch.bricksticks.image.build-command="git log --format="%H" --max-count=1 | xargs -I'{}' docker build \
+--tag docker-getting-started:1.0.0 --build-arg bricksticks_commit_id='{}' ."
 
