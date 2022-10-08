@@ -1,3 +1,8 @@
+# Alpine is a very lightweight linux OS. I.e. this docker image
+# is running node.js on a very lighweight linux distro, namely Alpine.
+# Node.js itself is a Java Script backend runtime. I.e. something that
+# you can write server applications (mostly accessing databases) for 
+# a front end all written in Java Script.
 FROM node:12-alpine
 
 # Note that this command is something that the image understands since 

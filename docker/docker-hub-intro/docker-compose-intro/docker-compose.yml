@@ -1,0 +1,47 @@
+# Which docker compose YAML schema version to use
+version: "3.8"
+
+volumes:
+  # A named volume
+  todo-mysql-data:
+
+# Keyword to starte defining services
+services:
+  # Name of one of the services
+  app:
+    # What is the base image of the service you want to start
+    # note this may be an image you built based on a docker file yourself
+    image: node:12-alpine
+    # Starts a node app using yarn with the dev config
+    command: sh -c "yarn install && yarn run dev"
+    # Working dir for this container (really depends on the image)
+    working_dir: /app
+    # Environment variables passed to this container
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+    # This is actually a bind mount mapping /app inside the container
+    # to our local directory
+    # Note that's not how we would typically do things but wanted
+    # to keep the todo item app separate from our compose example
+    # I.e. we're having this docker compose app just contain the docker 
+    # compose config while we leave the source of the original todo item
+    # project untouched.
+    volumes:
+      - ../docker-intro/app:/app
+    # All port mappings for this service
+    ports:
+      - 3000:3000
+
+  mysql:
+    # I don't have to launch something in software myself
+    # I can just grab a pre-baked image and have it run as a service
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+    # This is a named volume
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
