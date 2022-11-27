@@ -2,9 +2,13 @@
 <!-- The style you set for that division block is either defined by the style= attribute, a style sub-block or 
   by referencing a CSS defined style class using the class= attribute -->
 <!-- https://www.agernic.com/html-tutorial/html-div-style-div-style-class.html -->
-<div style="text-align:center; background-color:#ff00ff;">
-  <h1>
-    Tada! Welcome to {{title}}!!
-  </h1>
-  ... Starter Files ...
+<nav class='navbar navbar-expand navbar-light bg-light'>
+  <a class='navbar-brand'>{{pageTitle}}</a>
+  <ul class='nav nav-pills'>
+    <li><a class='nav-link' routerLinkActive='active' [routerLink]="['/welcome']">Home</a></li>
+    <li><a class='nav-link' routerLinkActive='active' [routerLink]="['/products']">Product List</a></li>
+  </ul>
+</nav>
+<div class='container'>
+<router-outlet></router-outlet>
 </div>

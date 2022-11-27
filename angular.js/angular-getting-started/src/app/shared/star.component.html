@@ -1,6 +1,9 @@
-<div class="crop"
+<!-- This is linked to the start component class cropWidth property -->
+<!-- Depending on that value more or less of the component template will be shown! -->
+<div class="crop" 
      [style.width.px]="cropWidth"
-     [title]="rating">
+     [title]="rating"
+     (click)="onClick()">
   <div style="width: 75px">
     <span class="fa fa-star"></span>
     <span class="fa fa-star"></span>

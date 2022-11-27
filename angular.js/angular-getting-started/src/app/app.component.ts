@@ -24,14 +24,9 @@ import { Component } from "@angular/core";
   // (probably there are better prefixes that in this example...)
   // Note how here I'm refering to an attribute in the html.
   // Typically I would probably refer to an actual html file.
-  template: 
-    `<div>
-      <h1>
-        {{pageTitle}}
-      </h1>
-      <div>My First Component</div>
-      </div>`
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
+
   pageTitle: string = 'Acme Product Management';
 }

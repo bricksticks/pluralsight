@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-header">
+        {{pageTitle}}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2"> 
+                Products Filter:
+            </div>
+            <div class="col-md-4"> 
+                <input type="text"
+                [(ngModel)]="productsFilterValue"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"> 
+                <h4>
+                    Filtered by: <i>{{productsFilterValue}}</i>
+                </h4>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table" *ngIf="filteredProducts.length > 0">
+                <thead>
+                    <tr>
+                        <th>
+                            <button class="btn btn-primary"
+                                (click)="toggleImage()">
+                                {{imageButtonLabel}}
+                            </button>
+                        </th>
+                        <th>Product</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- "let product of products" is essentially equivalent to for(product in products) -->
+                    <!-- There is also a for-in loop but that one will provide the index of the elements... -->
+                    <!-- Note that the let expression defines an array that *ngFor iterates over ... -->
+                    <tr *ngFor="let product of filteredProducts">
+                        <td>
+                            <img *ngIf="imageVisibility == true"
+                                 [src]="product.imageUrl"
+                                 [title]="product.productName" 
+                                 [style.width.px]="imageWidth"
+                                 [style.margin.px]="imageMargin"/>
+                        </td>
+                        <td>
+                            <!-- Note that <a> stands for "anker"-->
+                            <a [routerLink]="['/products', product.productCode]">{{product.productName}}</a>
+                            
+                        </td>
+                        <td>{{product.productCode | uppercase | convertToSpaces: '-' }}</td>
+                        <td>{{product.releaseDate}}</td>
+                        <td>{{product.price | currency: 'USD' : 'symbol': '1.2-2'}}</td>
+                        <td><pm-star [rating]="product.starRating"
+                                      (ratingClicked)="onRatingClicked($event)"></pm-star></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
